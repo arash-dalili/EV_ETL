@@ -106,5 +106,4 @@ All final tables are exported as `.csv` files.
 
 ## Schema Diagram
 
-A simplified star schema:
 ![ETL Diagram](schema.drawio.png)
