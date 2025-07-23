@@ -119,12 +119,12 @@ All final tables are exported as `.csv` files in the `output/` folder for inspec
    python etl_script.py
    ```
 
-4. (Optional) Run EDA:
+4. Run EDA:
    ```bash
    python explore_data.py
    ```
 
-## Schema Diagram (Optional)
+## Schema Diagram
 
 A simplified star schema:
 
