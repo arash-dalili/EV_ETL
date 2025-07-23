@@ -139,6 +139,3 @@ A simplified star schema:
                        ▲
                        |
                 dim_location
-```
-
-## License
