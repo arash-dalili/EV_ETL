@@ -1,6 +1,6 @@
 # Washington Electric Vehicle ETL Pipeline
 
-This project implements an ETL (Extract, Transform, Load) pipeline for analyzing electric and alternative fuel vehicles registered in Washington State. The goal is to prepare the dataset for loading into a data warehouse using a dimensional model (star schema).
+This project contains an ETL pipeline for analyzing electric vehicles registered in Washington State. The goal is to prepare the dataset for loading into a data warehouse using a dimensional model (star schema).
 
 ## Dataset
 
@@ -10,7 +10,7 @@ The dataset includes information such as:
 - Vehicle make, model, and year
 - Electric range and MSRP
 - Eligibility for clean alternative fuel incentives
-- Geographic and utility-related data
+- Geographic data
 
 ## Project Structure
 
@@ -34,10 +34,7 @@ The dataset includes information such as:
 - Reads the dataset directly from the data.wa.gov open data portal.
 
 ### 2. Transform
-- Handles missing values using a combination of:
-  - Group-based mode imputation (by `City`, `County`)
-  - Fallback to overall mode
-  - Replaces zero values in key numeric fields with group-level means
+- Handles missing values.
 - Encodes categorical fields:
   - `Electric Vehicle Type`
   - `Clean Alternative Fuel Vehicle (CAFV) Eligibility`
@@ -51,11 +48,9 @@ The dataset includes information such as:
 - Creates a **fact table**:
   - `fact_vehicle` with foreign keys referencing the dimension tables
 
-These tables are suitable for loading into a **star schema** data warehouse design.
-
 ## Exploratory Data Analysis (EDA)
 
-A preliminary analysis was conducted to understand key characteristics of the dataset and guide the ETL design. The focus was on three main variables: `Electric Range`, `Base MSRP`, and `Model Year`.
+A preliminary analysis was conducted to understand key characteristics of the dataset. The focus was on three main variables: `Electric Range`, `Base MSRP`, and `Model Year`.
 
 ### Electric Range
 - **Mean**: ~44 miles  
@@ -99,43 +94,17 @@ These were addressed using a layered approach:
 
 ## Output Tables
 
-All final tables are exported as `.csv` files in the `output/` folder for inspection or downstream warehousing.
+All final tables are exported as `.csv` files.
 
 ## How to Run
 
 1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-username/wa-ev-etl.git
-   cd wa-ev-etl
-   ```
 
 2. Install required packages:
-   ```bash
-   pip install -r requirements.txt
-   ```
 
 3. Run the ETL script:
-   ```bash
-   python etl_script.py
-   ```
-
-4. Run EDA:
-   ```bash
-   python explore_data.py
-   ```
 
 ## Schema Diagram
 
 A simplified star schema:
 
-```
-                  dim_ev_type
-                       ▲
-                       |
-                 dim_vehicle        dim_cafv_eligibility
-                       ▲                 ▲
-                       |                 |
-                    fact_vehicle  ◄──────┘
-                       ▲
-                       |
-                dim_location
